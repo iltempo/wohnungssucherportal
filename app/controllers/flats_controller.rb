@@ -21,14 +21,11 @@ class FlatsController < ApplicationController
   end
   
   def new
-    if !params[:url].blank?
-      @flat = Flat.from_url(params[:url])
+    if params[:url].present?
+      @flat = Flat.from_url(params[:url]).with_defaults
     else
-      @flat = Flat.new(:available_on => Date.today.next_month.at_beginning_of_month)
+      @flat = Flat.new(:available_on => Date.today.next_month.at_beginning_of_month).with_defaults
     end
-    @flat.city     = "München"
-    @flat.priority = Flat::DEFAULT_PRIORITY
-    @flat.state    = Flat::STATES.first
   end
 
   def edit

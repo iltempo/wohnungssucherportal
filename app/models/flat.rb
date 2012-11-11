@@ -64,6 +64,14 @@ class Flat < ActiveRecord::Base
     "Deutschland"
   end
   
+  # chainable method to assign default values
+  def with_defaults
+    self.city     = "München"
+    self.priority = DEFAULT_PRIORITY
+    self.state    = STATES.first
+    self
+  end
+  
   class << self
     
     def from_url(url)
